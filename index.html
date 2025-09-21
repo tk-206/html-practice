@@ -30,9 +30,15 @@
     <input type="file" id="photo" accept="image/*">
     <div class="photo-preview" id="photoPreview"></div>
 
+
     <!-- 경력/자격증 입력 -->
     <label for="career">경력 및 자격증</label>
     <textarea id="career" rows="5" placeholder="경력과 자격증을 입력하세요"></textarea>
+
+    <!-- 포트폴리오 링크 입력 -->
+    <label for="portfolio">포트폴리오 링크</label>
+    <input type="url" id="portfolio" placeholder="https://your-portfolio.com">
+
 
     <button type="button" onclick="showInfo()">내 정보 미리보기</button>
 
@@ -56,6 +62,7 @@
         const name = document.getElementById('name').value;
         const phone = document.getElementById('phone').value;
         const career = document.getElementById('career').value;
+        const portfolio = document.getElementById('portfolio').value;
         const photoInput = document.getElementById('photo');
         let photoURL = '';
         if (photoInput.files[0]) {
@@ -66,6 +73,9 @@
         html += `<strong>이름:</strong> ${name}<br>`;
         html += `<strong>전화번호:</strong> ${phone}<br>`;
         html += `<strong>경력/자격증:</strong><br><pre style='background:#eee; padding:8px; border-radius:4px;'>${career}</pre>`;
+        if (portfolio) {
+            html += `<strong>포트폴리오:</strong> <a href='${portfolio}' target='_blank'>${portfolio}</a><br>`;
+        }
         document.getElementById('result').innerHTML = html;
     }
     </script>
