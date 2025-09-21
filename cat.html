@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고양이 친구들 🐱</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        h1 {
+            color: white;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            color: #f0f0f0;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .cat-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .cat-emoji {
+            font-size: 4em;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+
+        .cat-name {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .cat-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .fun-facts {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .fun-facts h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .fact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .fact-item:hover {
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        .fact-emoji {
+            font-size: 2em;
+            margin-right: 15px;
+        }
+
+        .floating-cats {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-cat {
+            position: absolute;
+            font-size: 2em;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        .interactive-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .meow-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(238, 90, 36, 0.3);
+        }
+
+        .meow-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(238, 90, 36, 0.4);
+        }
+
+        .sound-message {
+            margin-top: 15px;
+            color: white;
+            font-size: 1.1em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            66% {
+                transform: translateY(-10px) rotate(-3deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .cat-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-cats">
+        <div class="floating-cat" style="left: 10%; top: 20%; animation-delay: 0s;">🐱</div>
+        <div class="floating-cat" style="left: 80%; top: 60%; animation-delay: 2s;">😸</div>
+        <div class="floating-cat" style="left: 60%; top: 10%; animation-delay: 4s;">🐈</div>
+        <div class="floating-cat" style="left: 20%; top: 80%; animation-delay: 1s;">😺</div>
+        <div class="floating-cat" style="left: 90%; top: 30%; animation-delay: 3s;">🙀</div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🐾 고양이 친구들 🐾</h1>
+            <p class="subtitle">사랑스러운 고양이들의 세상에 오신 것을 환영합니다!</p>
+        </header>
+
+        <div class="cat-grid">
+            <div class="cat-card">
+                <div class="cat-emoji">😸</div>
+                <div class="cat-name">미미</div>
+                <div class="cat-description">
+                    항상 웃고 있는 행복한 고양이입니다. 
+                    햇볕 아래서 낮잠자기를 가장 좋아해요!
+                </div>
+            </div>
+
+            <div class="cat-card" style="animation-delay: 0.2s;">
+                <div class="cat-emoji">😺</div>
+                <div class="cat-name">나비</div>
+                <div class="cat-description">
+                    호기심이 많은 장난꾸러기입니다. 
+                    새로운 것을 탐험하는 걸 좋아해요!
+                </div>
+            </div>
+
+            <div class="cat-card" style="animation-delay: 0.4s;">
+                <div class="cat-emoji">😻</div>
+                <div class="cat-name">코코</div>
+                <div class="cat-description">
+                    사랑이 넘치는 다정한 고양이입니다. 
+                    사람들과 함께 있는 시간을 소중히 여겨요!
+                </div>
+            </div>
+
+            <div class="cat-card" style="animation-delay: 0.6s;">
+                <div class="cat-emoji">🙀</div>
+                <div class="cat-name">토토</div>
+                <div class="cat-description">
+                    깜짝 놀라는 표정이 귀여운 고양이입니다. 
+                    조용한 곳에서 책 읽기를 좋아해요!
+                </div>
+            </div>
+
+            <div class="cat-card" style="animation-delay: 0.8s;">
+                <div class="cat-emoji">😹</div>
+                <div class="cat-name">루루</div>
+                <div class="cat-description">
+                    웃음을 잃지 않는 유쾌한 고양이입니다. 
+                    모든 일을 재미있게 만드는 마법사예요!
+                </div>
+            </div>
+
+            <div class="cat-card" style="animation-delay: 1s;">
+                <div class="cat-emoji">😽</div>
+                <div class="cat-name">별이</div>
+                <div class="cat-description">
+                    눈을 감고 행복해하는 평온한 고양이입니다. 
+                    명상과 요가를 즐겨해요!
+                </div>
+            </div>
+        </div>
+
+        <div class="fun-facts">
+            <h2>🐱 재미있는 고양이 사실들</h2>
+            
+            <div class="fact-item">
+                <span class="fact-emoji">💤</span>
+                <span>고양이는 하루에 12-16시간을 잠을 자며, 일생의 70%를 잠으로 보냅니다</span>
+            </div>
+            
+            <div class="fact-item">
+                <span class="fact-emoji">👃</span>
+                <span>고양이의 코 무늬는 사람의 지문처럼 모두 다릅니다</span>
+            </div>
+            
+            <div class="fact-item">
+                <span class="fact-emoji">🦻</span>
+                <span>고양이는 사람보다 2배 높은 주파수의 소리를 들을 수 있습니다</span>
+            </div>
+            
+            <div class="fact-item">
+                <span class="fact-emoji">🏃</span>
+                <span>고양이는 최대 시속 48km로 달릴 수 있습니다</span>
+            </div>
+            
+            <div class="fact-item">
+                <span class="fact-emoji">💕</span>
+                <span>고양이가 골골거리는 소리는 치유 효과가 있어 스트레스를 줄여줍니다</span>
+            </div>
+        </div>
+
+        <div class="interactive-section">
+            <button class="meow-button" onclick="playMeow()">🐱 야옹~ 소리내기</button>
+            <div class="sound-message" id="soundMessage">야옹~ 🎵</div>
+        </div>
+    </div>
+
+    <script>
+        function playMeow() {
+            const messages = [
+                "야옹~ 🐱", 
+                "냥냥~ 😸", 
+                "미야옹~ 😻", 
+                "냐아~ 😺", 
+                "골골~ 💕"
+            ];
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            const messageEl = document.getElementById('soundMessage');
+            
+            messageEl.textContent = randomMessage;
+            messageEl.style.opacity = '1';
+            
+            // 간단한 "소리" 효과 (진동)
+            if (navigator.vibrate) {
+                navigator.vibrate(200);
+            }
+            
+            setTimeout(() => {
+                messageEl.style.opacity = '0';
+            }, 2000);
+        }
+
+        // 페이지 로드 시 배경 고양이들에 랜덤 위치 설정
+        document.addEventListener('DOMContentLoaded', function() {
+            const floatingCats = document.querySelectorAll('.floating-cat');
+            floatingCats.forEach(cat => {
+                const randomTop = Math.random() * 80 + 10;
+                const randomLeft = Math.random() * 80 + 10;
+                cat.style.top = randomTop + '%';
+                cat.style.left = randomLeft + '%';
+            });
+        });
+
+        // 스크롤 시 카드 애니메이션
+        window.addEventListener('scroll', function() {
+            const cards = document.querySelectorAll('.cat-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
