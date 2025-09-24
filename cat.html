@@ -190,6 +190,53 @@
             margin-right: 10px;
         }
 
+        /* 게임 페이지 스타일 */
+        .game-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .game-cell {
+            width: 100px;
+            height: 100px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 10px;
+            font-size: 3em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .game-cell:hover {
+            background: #e0e0e0;
+            transform: scale(1.05);
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .score-item {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
         /* 반응형 디자인 */
         @media (max-width: 768px) {
             .nav-menu {
@@ -395,6 +442,37 @@
         </div>
     </div>
 
+    <!-- 게임 페이지 -->
+    <div class="page" id="game">
+        <div style="text-align: center; color: white; margin-bottom: 30px;">
+            <h2 style="font-size: 2.5em; margin-bottom: 10px;">🎮 고양이 틱택토</h2>
+            <p style="font-size: 1.1em;">고양이 vs 물고기! 누가 이길까요?</p>
+        </div>
+
+        <div class="game-container">
+            <div class="score-board">
+                <div class="score-item">고양이 🐱: <span id="catScore">0</span></div>
+                <div class="score-item">물고기 🐟: <span id="fishScore">0</span></div>
+                <div class="score-item">무승부: <span id="tieScore">0</span></div>
+            </div>
+            
+            <div class="game-board" id="gameBoard">
+                <button class="game-cell" onclick="makeMove(0)"></button>
+                <button class="game-cell" onclick="makeMove(1)"></button>
+                <button class="game-cell" onclick="makeMove(2)"></button>
+                <button class="game-cell" onclick="makeMove(3)"></button>
+                <button class="game-cell" onclick="makeMove(4)"></button>
+                <button class="game-cell" onclick="makeMove(5)"></button>
+                <button class="game-cell" onclick="makeMove(6)"></button>
+                <button class="game-cell" onclick="makeMove(7)"></button>
+                <button class="game-cell" onclick="makeMove(8)"></button>
+            </div>
+            
+            <div id="gameStatus" style="font-size: 1.2em; margin: 20px 0; font-weight: bold;">고양이의 차례입니다! 🐱</div>
+            <button class="cta-button" onclick="resetGame()">새 게임 시작</button>
+        </div>
+    </div>
+
     <script>
         // 페이지 관리
         function showPage(pageId) {
@@ -417,6 +495,61 @@
         // 모바일 메뉴 토글
         function toggleMenu() {
             document.getElementById('navMenu').classList.toggle('show');
+        }
+        
+        // 틱택토 게임 로직
+        let board = ['', '', '', '', '', '', '', '', ''];
+        let currentPlayer = '🐱';
+        let gameActive = true;
+        let scores = { cat: 0, fish: 0, tie: 0 };
+
+        const winningConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        function makeMove(cellIndex) {
+            if (board[cellIndex] !== '' || !gameActive) return;
+            
+            board[cellIndex] = currentPlayer;
+            document.querySelectorAll('.game-cell')[cellIndex].textContent = currentPlayer;
+            
+            if (checkWinner()) {
+                gameActive = false;
+                if (currentPlayer === '🐱') {
+                    scores.cat++;
+                    document.getElementById('catScore').textContent = scores.cat;
+                    document.getElementById('gameStatus').textContent = '🎉 고양이 승리!';
+                } else {
+                    scores.fish++;
+                    document.getElementById('fishScore').textContent = scores.fish;
+                    document.getElementById('gameStatus').textContent = '🎉 물고기 승리!';
+                }
+            } else if (board.every(cell => cell !== '')) {
+                scores.tie++;
+                document.getElementById('tieScore').textContent = scores.tie;
+                document.getElementById('gameStatus').textContent = '😸 무승부!';
+                gameActive = false;
+            } else {
+                currentPlayer = currentPlayer === '🐱' ? '🐟' : '🐱';
+                document.getElementById('gameStatus').textContent = 
+                    currentPlayer === '🐱' ? '고양이의 차례입니다! 🐱' : '물고기의 차례입니다! 🐟';
+            }
+        }
+
+        function checkWinner() {
+            return winningConditions.some(condition => {
+                return condition.every(index => board[index] === currentPlayer);
+            });
+        }
+
+        function resetGame() {
+            board = ['', '', '', '', '', '', '', '', ''];
+            currentPlayer = '🐱';
+            gameActive = true;
+            document.querySelectorAll('.game-cell').forEach(cell => cell.textContent = '');
+            document.getElementById('gameStatus').textContent = '고양이의 차례입니다! 🐱';
         }
 
         // 페이지 로드 시 배경 고양이들 랜덤 위치 설정
