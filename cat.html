@@ -237,6 +237,47 @@
             font-weight: bold;
         }
 
+        /* 연락처 페이지 스타일 */
+        .contact-form {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
         /* 반응형 디자인 */
         @media (max-width: 768px) {
             .nav-menu {
@@ -471,6 +512,37 @@
             <div id="gameStatus" style="font-size: 1.2em; margin: 20px 0; font-weight: bold;">고양이의 차례입니다! 🐱</div>
             <button class="cta-button" onclick="resetGame()">새 게임 시작</button>
         </div>
+
+        <!-- 연락처 페이지 -->
+        <div class="page" id="contact">
+            <div style="text-align: center; color: white; margin-bottom: 30px;">
+                <h2 style="font-size: 2.5em; margin-bottom: 10px;">📞 연락하기</h2>
+                <p style="font-size: 1.1em;">고양이에 대한 질문이나 의견을 보내주세요!</p>
+            </div>
+
+            <div class="contact-form">
+                <h3 style="text-align: center; margin-bottom: 20px; color: #333;">메시지 보내기 💌</h3>
+                <form onsubmit="sendMessage(event)">
+                    <div class="form-group">
+                        <label for="name">이름:</label>
+                        <input type="text" id="name" required placeholder="이름을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일:</label>
+                        <input type="email" id="email" required placeholder="이메일을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">제목:</label>
+                        <input type="text" id="subject" required placeholder="제목을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">메시지:</label>
+                        <textarea id="message" required placeholder="메시지를 입력하세요..."></textarea>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%;">메시지 보내기 🚀</button>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -551,6 +623,22 @@
             document.querySelectorAll('.game-cell').forEach(cell => cell.textContent = '');
             document.getElementById('gameStatus').textContent = '고양이의 차례입니다! 🐱';
         }
+
+        // 연락처 폼 처리
+        function sendMessage(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // 실제로는 서버로 전송하겠지만, 여기서는 알림만
+            alert(`메시지가 전송되었습니다! 🎉\n\n보낸 사람: ${name}\n제목: ${subject}\n\n감사합니다! 곧 연락드리겠습니다. 😸`);
+            
+            // 폼 초기화
+            document.querySelector('form').reset();
+        }
+
 
         // 페이지 로드 시 배경 고양이들 랜덤 위치 설정
         document.addEventListener('DOMContentLoaded', function() {
