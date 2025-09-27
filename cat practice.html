@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고양이 홈페이지 개발 연습</title>
+    <link rel="stylesheet" href="styles/layout.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">My Cat</div>
+            <ul class="nav-menu">
+                <li class="nav-item active" onclick="showPage('about')">고양이 소개</li>
+                <li class="nav-item" onclick="showPage('gallery')">갤러리</li>
+                <li class="nav-item" onclick="showPage('facts')">고양이 정보</li>
+                <li class="nav-item" onclick="showPage('contact')">문의하기</li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page" id="about">
+        <div style="text-align: center; color: white; margin-top: 50px;">
+            <p style="font-size: 1.5em;">
+                안녕하세요! 저는 고양이를 사랑하는 개발자입니다. 이 홈페이지에서 고양이의 매력에 빠져보세요!
+            </p>
+        </div>
+
+        <div class="cat-grid">
+            <div class="cat-card">
+                <div class="cat-name">나비</div>
+                <div class="cat-description">활발하고 장난꾸러기인 고양이입니다. 항상 새로운 모험을 찾아다녀요!</div>
+            </div>
+
+            <div class="cat-card">
+                <div class="cat-name">보름</div>
+                <div class="cat-description">조용하고 신중한 성격의 고양이입니다. 항상 주변을 살피며 행동해요!</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
