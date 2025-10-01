@@ -1,0 +1,43 @@
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--white);
+        flex-direction: column;
+        box-shadow: 0 5px 15px var(--shadow-light);
+    }
+
+    .nav-menu.show {
+        display: flex;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hero h1 {
+        font-size: 2.5em;
+    }
+
+    .cat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .game-board {
+        grid-template-columns: repeat(3, 80px);
+    }
+
+    .game-cell {
+        width: 80px;
+        height: 80px;
+        font-size: 2em;
+    }
+
+    .score-board {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
