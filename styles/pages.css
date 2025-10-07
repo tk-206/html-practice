@@ -1,3 +1,12 @@
+/* 페이지 컨테이너 */
+.page {
+    display: none;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.page.active {
+    display: block;
+}
 
 nav {
     background: rgba(255, 255, 255, 0.95);
@@ -74,6 +83,43 @@ nav {
 }
 
 .cat-description {
+    color: #666;
+    line-height: 1.5;
+}
+
+/* 정보 페이지 */
+.facts-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 40px 20px;
+    margin-top: 30px;
+}
+
+.facts-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.facts-number {
+    font-size: 2em;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.facts-text {
     color: #666;
     line-height: 1.5;
 }

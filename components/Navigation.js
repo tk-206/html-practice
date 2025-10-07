@@ -1,5 +1,5 @@
 // 페이지 관리
-function Navigation(pageId) {
+function showPage(pageId) {
   const pages = document.querySelectorAll('.page');
     pages.forEach(page => page.classList.remove('active'));
 
