@@ -3,21 +3,497 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>고양이 홈페이지</title>
-    <link rel="stylesheet" href="styles/layout.css">
-    <link rel="stylesheet" href="styles/pages.css">
-</head>
+    <title>갤러리</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0; 
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #45a049;
+        }
+
+        .btn-secondary {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #0b7dda;
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.9em;
+        }
+
+        .btn-danger:hover {
+            background: #da190b;
+        }
+
+        /* 폼 스타일 */
+        .form-container {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        .image-preview {
+            margin-top: 10px;
+            max-width: 200px;
+            max-height: 200px;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        /* 갤러리 목록 스타일 */
+        .gallery-container {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .gallery-container.active {
+            display: block;
+        }
+
+        .gallery-list {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .post-title {
+            color: #667eea;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .post-title:hover {
+            text-decoration: underline;
+        }
+
+        /* 상세보기 스타일 */
+        .detail-container {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .detail-container.active {
+            display: block;
+        }
+
+        .detail-header {
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .detail-header h2 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .detail-meta {
+            display: flex;
+            gap: 30px;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .detail-image {
+            margin: 20px 0;
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .detail-content {
+            line-height: 1.8;
+            color: #555;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .back-btn {
+            margin-bottom: 20px;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
 <body>
-    <nav>
-        <div class="nav-container">
-            <ul>
-                <li onclick="location.href='catMain.html'" style="cursor:pointer;">홈</li>
-                <li onclick="location.href='catWeather.html'" style="cursor:pointer;">날씨 정보</li>
-            </ul>
+    <div class="container">
+        <div class="header">
+            <h1>📷 갤러리</h1>
         </div>
-    </nav>
-    <h1>고양이 홈페이지에 오신 것을 환영합니다!</h1>
-    <p>여기에서 귀여운 고양이 사진과 정보를 찾아보세요.</p>
+
+        <!-- 폼 -->
+        <div class="form-container" id="formContainer">
+            <h2>새 글 작성</h2>
+            <form id="postForm">
+                <div class="form-group">
+                    <label for="title">제목 *</label>
+                    <input type="text" id="title" required placeholder="제목을 입력하세요">
+                </div>
+
+                <div class="form-group">
+                    <label for="author">작성자 *</label>
+                    <input type="text" id="author" required placeholder="작성자명을 입력하세요">
+                </div>
+
+                <div class="form-group">
+                    <label for="image">사진</label>
+                    <input type="file" id="image" accept="image/*">
+                    <img id="imagePreview" class="image-preview" style="display: none;">
+                </div>
+
+                <div class="form-group">
+                    <label for="content">내용 *</label>
+                    <textarea id="content" required placeholder="내용을 입력하세요"></textarea>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="cancelForm()">취소</button>
+                    <button type="submit" class="btn btn-primary">저장</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 갤러리 목록 -->
+        <div class="gallery-container" id="galleryContainer">
+            <div class="nav-buttons">
+                <button class="btn btn-primary" onclick="showForm()">새 글 작성</button>
+            </div>
+
+            <div class="gallery-list">
+                <table id="galleryTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;">번호</th>
+                            <th style="width: 40%;">제목</th>
+                            <th style="width: 25%;">작성자</th>
+                            <th style="width: 25%;">생성 날짜</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="emptyMessage" class="empty-message">
+                아직 글이 없습니다. 첫 번째 글을 작성해보세요!
+            </div>
+        </div>
+
+        <!-- 상세보기 -->
+        <div class="detail-container" id="detailContainer">
+            <div class="back-btn">
+                <button class="btn btn-secondary" onclick="showGallery()">← 목록으로 돌아가기</button>
+            </div>
+
+            <div class="detail-header">
+                <h2 id="detailTitle"></h2>
+                <div class="detail-meta">
+                    <span><strong>작성자:</strong> <span id="detailAuthor"></span></span>
+                    <span><strong>작성일:</strong> <span id="detailDate"></span></span>
+                </div>
+            </div>
+
+            <img id="detailImage" class="detail-image" style="display: none;">
+            <div class="detail-content" id="detailContent"></div>
+
+            <div style="margin-top: 30px; text-align: right;">
+                <button class="btn btn-danger" onclick="deletePost()">삭제</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let posts = [];
+        let currentDetailId = null;
+
+        // 로컬 스토리지에서 데이터 로드 (로컬 스토리지 미지원 시 메모리 사용)
+        function loadPosts() {
+            try {
+                const saved = localStorage.getItem('galleryPosts');
+                posts = saved ? JSON.parse(saved) : [];
+            } catch (e) {
+                posts = [];
+            }
+        }
+
+        // 로컬 스토리지에 데이터 저장 (미지원 시 메모리에만 유지)
+        function savePosts() {
+            try {
+                localStorage.setItem('galleryPosts', JSON.stringify(posts));
+            } catch (e) {
+                // localStorage 미지원 시 무시 (메모리에만 유지)
+            }
+        }
+
+        // 초기화
+        document.getElementById('postForm').addEventListener('submit', handleSubmit);
+        document.getElementById('image').addEventListener('change', handleImageChange);
+
+        function showForm() {
+            document.getElementById('formContainer').classList.add('active');
+            document.getElementById('galleryContainer').classList.remove('active');
+            document.getElementById('detailContainer').classList.remove('active');
+            document.getElementById('postForm').reset();
+            document.getElementById('imagePreview').style.display = 'none';
+        }
+
+        function cancelForm() {
+            document.getElementById('formContainer').classList.remove('active');
+            document.getElementById('galleryContainer').classList.add('active');
+            document.getElementById('postForm').reset();
+            document.getElementById('imagePreview').style.display = 'none';
+        }
+
+        function showGallery() {
+            document.getElementById('formContainer').classList.remove('active');
+            document.getElementById('galleryContainer').classList.add('active');
+            document.getElementById('detailContainer').classList.remove('active');
+            renderGallery();
+        }
+
+        function handleImageChange(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = event.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+
+            const title = document.getElementById('title').value.trim();
+            const author = document.getElementById('author').value.trim();
+            const content = document.getElementById('content').value.trim();
+            const imageElement = document.getElementById('imagePreview');
+
+            if (!title || !author || !content) {
+                alert('제목, 작성자, 내용은 필수입니다.');
+                return;
+            }
+
+            const imageData = imageElement.src && imageElement.style.display !== 'none' ? imageElement.src : null;
+
+            const post = {
+                id: Date.now(),
+                title: title,
+                author: author,
+                content: content,
+                image: imageData,
+                date: new Date().toLocaleDateString('ko-KR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                })
+            };
+
+            posts.unshift(post);
+            savePosts();
+
+            document.getElementById('postForm').reset();
+            document.getElementById('imagePreview').style.display = 'none';
+
+            showGallery();
+        }
+
+        function renderGallery() {
+            const tbody = document.getElementById('tableBody');
+            const emptyMessage = document.getElementById('emptyMessage');
+
+            tbody.innerHTML = '';
+
+            if (posts.length === 0) {
+                emptyMessage.style.display = 'block';
+                return;
+            }
+
+            emptyMessage.style.display = 'none';
+
+            posts.forEach((post, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${posts.length - index}</td>
+                    <td><a class="post-title" onclick="showDetail(${post.id})">${post.title}</a></td>
+                    <td>${post.author}</td>
+                    <td>${post.date}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function showDetail(id) {
+            const post = posts.find(p => p.id === id);
+            if (!post) return;
+
+            currentDetailId = id;
+
+            document.getElementById('formContainer').classList.remove('active');
+            document.getElementById('galleryContainer').classList.remove('active');
+            document.getElementById('detailContainer').classList.add('active');
+
+            document.getElementById('detailTitle').textContent = post.title;
+            document.getElementById('detailAuthor').textContent = post.author;
+            document.getElementById('detailDate').textContent = post.date;
+            document.getElementById('detailContent').textContent = post.content;
+
+            const detailImage = document.getElementById('detailImage');
+            if (post.image) {
+                detailImage.src = post.image;
+                detailImage.style.display = 'block';
+            } else {
+                detailImage.style.display = 'none';
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        function deletePost() {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                posts = posts.filter(p => p.id !== currentDetailId);
+                savePosts();
+                showGallery();
+            }
+        }
+
+        // 초기 화면 표시
+        loadPosts();
+        showGallery();
+    </script>
 </body>
 </html>

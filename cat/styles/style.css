@@ -1,3 +1,4 @@
+/* navigation styles */
 .nav-container {
     border: 1px solid #e6e6e6;
     border-radius: 5px;
@@ -40,6 +41,7 @@
     font-weight: bold;
 }
 
+/* weather styles */
 .weather-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -116,4 +118,209 @@
     margin-bottom: 20px;
     color: #0c5aa0;
     font-size: 13px;
+}
+
+/* gallery styles */
+.gallery-container {
+    display: none;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.gallery-container.active {
+    display: block;
+}
+
+.gallery-list {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th {
+    background: #667eea;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+}
+
+table td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+table tr:hover {
+    background: #f5f5f5;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #45a049;
+}
+
+.btn-secondary {
+    background: #2196F3;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #0b7dda;
+}
+
+.btn-danger {
+    background: #f44336;
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.9em;
+}
+
+.btn-danger:hover {
+    background: #da190b;
+}
+
+
+/* 폼 스타일 */
+.form-container {
+    display: none;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.form-container.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: inherit;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
+.image-preview {
+    margin-top: 10px;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.post-title {
+    color: #667eea;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.post-title:hover {
+    text-decoration: underline;
+}
+
+/* 상세보기 스타일 */
+.detail-container {
+    display: none;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.detail-container.active {
+    display: block;
+}
+
+.detail-header {
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.detail-header h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.detail-meta {
+    display: flex;
+    gap: 30px;
+    color: #666;
+    font-size: 0.95em;
+}
+
+.detail-image {
+    margin: 20px 0;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.detail-content {
+    line-height: 1.8;
+    color: #555;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.back-btn {
+    margin-bottom: 20px;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+    font-size: 1.1em;
 }
