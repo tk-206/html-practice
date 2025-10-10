@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고양이 날씨 정보</title>
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="components/weather.js"></script>
+</head>
+<body>
+    <div class="scroll-box">
+        <nav>
+            <div class="nav-container">
+                <ul>
+                    <li onclick="location.href='catMain.html'">홈</li>
+                    <li onclick="location.href='catWeather.html'" class="active">날씨 정보</li>
+                    <li onclick="location.href='catGallery.html'">갤러리</li>
+                </ul>
+            </div>
+        </nav>
+        <h1>고양이 날씨 정보</h1>
+        <p>여기에서 고양이의 날씨 정보를 확인하세요.</p>
+        <div class="demo-note">
+            <strong>데모 주의:</strong> 이 페이지는 데모 목적으로 만들어졌으며, 실제 날씨 API와 연동되어 있지 않습니다. 
+            실제 구현 시에는 서버에서 날씨 데이터를 받아와야 합니다.
+        </div>
+        
+            <div id="weather-container" class="weather-grid"></div>
+        </div>
+    </div>
+</body>
+</html>

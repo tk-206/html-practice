@@ -1,0 +1,18 @@
+body {
+    min-height: 100vh;
+    overflow: auto;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: Arial, sans-serif;
+}
+
+body h1, body p {
+    text-align: center;
+    color: #fff;
+    margin-top: 20px;
+}
+
+.scroll-box {
+  width: 1fr; /* 가로 크기 */
+  height: 1fr; /* 세로 크기 */
+  overflow: auto; /* 내용이 넘칠 때 스크롤바 자동 생성 */
+}

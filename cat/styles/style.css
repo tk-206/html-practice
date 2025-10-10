@@ -1,0 +1,119 @@
+.nav-container {
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.nav-container ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-container li {
+    width: 33.33%;
+    height: 45px;
+    line-height: 45px;
+    border-left: 1px solid #cecece;
+    font-size: 14px;
+    color: #FFFFFF;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.nav-container li:first-child {
+    border-left: none;
+}
+
+.nav-container li:hover {
+    background-color: #f5f5f5;
+    color: #000;
+    font-weight: bold;
+}
+
+.nav-container .active {
+    background-color: #DDDDFF;
+    color: #000;
+    font-weight: bold;
+}
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15;
+    padding: 20px;
+}
+
+.weather-card {
+    background: linear(135deg, #667eea 0%);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    margin: 5px;
+}
+
+.weather-card:hover {
+    transform: translateY(-5px);
+}
+
+.time {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.weather-item {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.label {
+    opacity: 0.9;
+    font-size: 12px;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.value {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.temp {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #667eea;
+    font-size: 16px;
+}
+
+.error {
+    background: #fee;
+    color: #c33;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.demo-note {
+    background: #e7f3ff;
+    border-left: 4px solid #2196F3;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    color: #0c5aa0;
+    font-size: 13px;
+}
