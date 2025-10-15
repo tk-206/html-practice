@@ -198,7 +198,9 @@ table tr:hover {
     background: #da190b;
 }
 
-
+.cat-button {
+    color: blueviolet
+}
 
 /* 폼 스타일 */
 .form-container {
