@@ -199,7 +199,10 @@ table tr:hover {
 }
 
 .cat-button {
-    color: blueviolet
+    color: blueviolet;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
 }
 
 /* 폼 스타일 */
